@@ -5,7 +5,7 @@ import {
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
   GET_ERRORS,
-} from "../actions/types";
+} from "../actions/types/types";
 
 // initial state
 const initialState = {

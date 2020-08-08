@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, USER_LOADING } from "../actions/types";
+import { SET_CURRENT_USER, USER_LOADING } from "../actions/types/types";
 const isEmpty = require("is-empty");
 const initialState = {
   isAuthenticated: false,

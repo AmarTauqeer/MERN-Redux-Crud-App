@@ -44,16 +44,20 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/category" component={Category} />
-            <Route exact path="/category/create" component={CreateCategory} />
-            <Route
-              exact
-              path="/category/updateCategory/:id"
-              component={UpdateCategory}
-            />
 
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/category" component={Category} />
+              <PrivateRoute
+                exact
+                path="/category/create"
+                component={CreateCategory}
+              />
+              <PrivateRoute
+                exact
+                path="/category/updateCategory/:id"
+                component={UpdateCategory}
+              />
             </Switch>
           </div>
         </Router>

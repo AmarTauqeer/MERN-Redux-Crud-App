@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../actions/categoryActions";
-import "./category.css";
 import { Link } from "react-router-dom";
 
 class category extends Component {
@@ -23,9 +22,13 @@ class category extends Component {
       }
     };
     return (
-      <div className="container">
-        <h4>List of Categories</h4>
-        <Link to="/category/create" style={{ marginLeft: "50px" }}>
+      <div className="container" style={{ padding: "0px 20px" }}>
+        <br />
+        <h4 style={{ marginTop: "4rem", textAlign: "center" }}>
+          List of Categories
+        </h4>
+
+        <Link to="/category/create">
           <button
             className="waves-effect waves-light btn"
             style={{ textDecoration: "none" }}
@@ -34,7 +37,7 @@ class category extends Component {
           </button>
         </Link>
 
-        <table className="responsive-table">
+        <table className="striped">
           <thead>
             <tr>
               <th>Id</th>
