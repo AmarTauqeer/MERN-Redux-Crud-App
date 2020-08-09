@@ -1,19 +1,19 @@
 # MERN-Redux-Crud-App
 ### Key Features
--Protected Routes
--Authentication using Mongodb, JWT(Json web token) and local storage
--CRUD operation
--Responsive
--Validation
+- Protected Routes
+- Authentication using Mongodb, JWT(Json web token) and local storage
+- CRUD operation
+- Responsive
+- Validation
 ### Tools and Technology
--React
--Redux(State management tool)
--Node
--Express
--MongoDB
--MongoCompass
--Postman
--REST API's
+- React
+- Redux(State management tool)
+- Node
+- Express
+- MongoDB
+- MongoCompass
+- Postman
+- REST API's
 
 
 
