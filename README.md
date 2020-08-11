@@ -4,7 +4,8 @@
 - Authentication using Mongodb, JWT(Json web token) and local storage
 - CRUD operation
 - Responsive
-- Validation
+- Validation server side
+- Validation client side
 ### Tools and Technology
 - React
 - Redux(State management tool)
