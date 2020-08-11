@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions/categoryActions";
+
+const initialState = {
+  _id: "",
+  name: "",
+  categoryId: "",
+  nameError: "",
+  categoryIdError: "",
+};
+
 class updateCategory extends Component {
   constructor() {
     super();
-    this.state = {
-      _id: "",
-      name: "",
-      categoryId: "",
-    };
+    this.state = initialState;
   }
 
   componentDidMount() {
@@ -27,20 +32,48 @@ class updateCategory extends Component {
     });
   }
 
+  validate = () => {
+    let nameError = "";
+    let categoryIdError = "";
+
+    if (this.state.name.length === 0) {
+      nameError = "Name is required.";
+    }
+
+    if (this.state.categoryId.length === 0) {
+      categoryIdError = "Category id is required.";
+    }
+
+    if (nameError || categoryIdError) {
+      this.setState({
+        nameError,
+        categoryIdError,
+      });
+      return false;
+    }
+    return true;
+  };
+
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      _id: this.state._id,
-      name: this.state.name,
-      categoryId: this.state.categoryId,
-    };
 
-    this.props.updateCategories(this.state._id, data);
-    this.props.history.push("/category");
+    // validation
+    const isValid = this.validate();
+
+    if (isValid) {
+      const data = {
+        _id: this.state._id,
+        name: this.state.name,
+        categoryId: this.state.categoryId,
+      };
+
+      this.props.updateCategories(this.state._id, data);
+      this.props.history.push("/category");
+    }
   };
   render() {
     return (
@@ -70,6 +103,9 @@ class updateCategory extends Component {
                   id="name"
                   type="text"
                 />
+                {this.state.nameError ? (
+                  <span className="red-text">{this.state.nameError}</span>
+                ) : null}
 
                 <input type="hidden" id="_id" value={this.state._id} />
               </div>
@@ -80,6 +116,9 @@ class updateCategory extends Component {
                   id="categoryId"
                   type="text"
                 />
+                {this.state.categoryIdError ? (
+                  <span className="red-text">{this.state.categoryIdError}</span>
+                ) : null}
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
