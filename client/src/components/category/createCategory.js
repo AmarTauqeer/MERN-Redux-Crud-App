@@ -2,26 +2,62 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addCategories } from "../../actions/categoryActions";
+
+const initialState = {
+  name: "",
+  categoryId: "",
+  nameError: "",
+  categoryIdError: "",
+};
+
 class createCategory extends Component {
   constructor() {
     super();
-    this.state = {
-      name: "",
-      categoryId: "",
-    };
+    this.state = initialState;
   }
 
+  validate = () => {
+    let nameError = "";
+    let categoryIdError = "";
+
+    if (!this.state.name) {
+      nameError = "Name is required.";
+    }
+
+    if (!this.state.categoryId) {
+      categoryIdError = "Category id is required.";
+    }
+
+    if ((nameError, categoryIdError)) {
+      this.setState({
+        nameError,
+        categoryIdError,
+      });
+      return false;
+    }
+    return true;
+  };
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
   onSubmit = (e) => {
     e.preventDefault();
+
     const newCategory = {
       name: this.state.name,
       categoryId: this.state.categoryId,
     };
-    this.props.addCategories(newCategory);
-    this.props.history.push("/category");
+
+    // validation
+    const isValid = this.validate();
+
+    if (isValid) {
+      this.props.addCategories(newCategory);
+      this.props.history.push("/category");
+
+      // clear form
+      this.setState(initialState);
+    }
   };
   render() {
     return (
@@ -52,6 +88,9 @@ class createCategory extends Component {
                   type="text"
                 />
                 <label htmlFor="name">Name</label>
+                {this.state.nameError ? (
+                  <span className="red-text">{this.state.nameError}</span>
+                ) : null}
               </div>
               <div className="input-field col s12">
                 <input
@@ -61,6 +100,9 @@ class createCategory extends Component {
                   type="text"
                 />
                 <label htmlFor="categoryId">Category ID</label>
+                {this.state.categoryIdError ? (
+                  <span className="red-text">{this.state.categoryIdError}</span>
+                ) : null}
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
@@ -83,6 +125,7 @@ class createCategory extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   cat: state.cat,
 });
