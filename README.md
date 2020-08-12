@@ -3,6 +3,7 @@
 - Protected Routes
 - Authentication using Mongodb, JWT(Json web token) and local storage
 - CRUD operation
+- * Create, Read, Update, Delete and Search
 - Responsive
 - Validation server side
 - Validation client side
