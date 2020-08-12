@@ -56,7 +56,7 @@ class category extends Component {
         <input
           type="text"
           name="filterByName"
-          placeholder="Search"
+          placeholder="Search by name"
           onChange={this.handleChange}
           id="filterByName"
           value={filterByName}
