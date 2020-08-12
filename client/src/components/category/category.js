@@ -4,15 +4,41 @@ import * as actions from "../../actions/categoryActions";
 import { Link } from "react-router-dom";
 
 class category extends Component {
+  constructor() {
+    super();
+    this.state = {
+      filterByName: "",
+      categoryList: "",
+    };
+  }
   componentDidMount() {
     this.props.fetchAllCategories();
   }
+  handleChange = (e) => {
+    this.setState({ filterByName: e.target.value });
+
+    let name = e.target.value;
+
+    let filterCat = this.props.categoryData.response;
+
+    if (filterCat !== undefined) {
+      if (name) {
+        let fCate = filterCat.filter((x) => x.name.includes(name));
+        this.setState({
+          categoryList: fCate,
+        });
+      }
+    }
+  };
 
   render() {
     const { categoryData } = this.props;
-    var categoryList;
-    if (categoryData !== undefined) {
-      categoryList = categoryData.response;
+    let { categoryList, filterByName } = this.state;
+
+    if (!filterByName) {
+      if (categoryData !== undefined) {
+        categoryList = categoryData.response;
+      }
     }
     // delete operation with prompt
     const onDelete = (id) => {
@@ -27,6 +53,14 @@ class category extends Component {
         <h4 style={{ marginTop: "4rem", textAlign: "center" }}>
           List of Categories
         </h4>
+        <input
+          type="text"
+          name="filterByName"
+          placeholder="Search"
+          onChange={this.handleChange}
+          id="filterByName"
+          value={filterByName}
+        />
 
         <Link to="/category/create">
           <button
