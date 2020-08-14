@@ -7,6 +7,7 @@
 - Responsive
 - Validation server side
 - Validation client side
+- Pagination
 ### Tools and Technology
 - React
 - Redux(State management tool)
