@@ -104,7 +104,7 @@ class category extends Component {
           </button>
         </Link>
 
-        <table className="striped">
+        <table className="table">
           <thead>
             <tr>
               <th>Id</th>
