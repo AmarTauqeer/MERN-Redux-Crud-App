@@ -18,17 +18,6 @@ export const fetchCategories = () => {
   };
 };
 
-// fetch category by id
-export const fetchCategoryById = (id) => {
-  return (dispatch) => {
-    axios.get(`/api/category/${id}`).then((response) => {
-      const categories = response.data;
-      //console.log(categories);
-      dispatch(actionCreator.fetchCategoryById(categories));
-    });
-  };
-};
-
 // add
 export const addCategories = (categories) => {
   return (dispatch) => {
