@@ -1,8 +1,18 @@
+/************************ Types ************************/
+// user
+export const GET_ERRORS = "GET_ERRORS";
+export const USER_LOADING = "USER_LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
+// category
 export const FETCH_CATEGORY = "FETCH_CATEGORY";
+export const FETCH_CATEGORY_BY_ID = "FETCH_CATEGORY_BY_ID";
 export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 
-export const GET_ERRORS = "GET_ERRORS";
-export const USER_LOADING = "USER_LOADING";
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
+// product
+export const FETCH_PRODUCT = "FETCH_PRODUCT";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";

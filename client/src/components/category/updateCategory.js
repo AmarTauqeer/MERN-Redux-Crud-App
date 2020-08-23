@@ -71,7 +71,8 @@ class updateCategory extends Component {
         categoryId: this.state.categoryId,
       };
 
-      this.props.updateCategories(this.state._id, data);
+      let id = this.state._id;
+      this.props.updateCategories(id, data);
       this.props.history.push("/category");
     }
   };
@@ -83,7 +84,7 @@ class updateCategory extends Component {
           <div className="col s8 offset-s2">
             <Link to="/category" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
-              home
+              Category
             </Link>
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4
@@ -97,6 +98,7 @@ class updateCategory extends Component {
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
+                <label className="active">Category Name</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.name}
@@ -110,6 +112,7 @@ class updateCategory extends Component {
                 <input type="hidden" id="_id" value={this.state._id} />
               </div>
               <div className="input-field col s12">
+                <label className="active">Category Reference#</label>
                 <input
                   onChange={this.onChange}
                   value={this.state.categoryId}

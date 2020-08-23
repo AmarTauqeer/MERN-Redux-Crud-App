@@ -67,7 +67,7 @@ class createCategory extends Component {
           <div className="col s8 offset-s2">
             <Link to="/category" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
-              home
+              Category
             </Link>
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4
@@ -99,7 +99,7 @@ class createCategory extends Component {
                   id="categoryId"
                   type="text"
                 />
-                <label htmlFor="categoryId">Category ID</label>
+                <label htmlFor="categoryId">Ref Cat ID</label>
                 {this.state.categoryIdError ? (
                   <span className="red-text">{this.state.categoryIdError}</span>
                 ) : null}

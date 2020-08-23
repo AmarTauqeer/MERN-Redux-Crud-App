@@ -1,71 +1,79 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../actions/categoryActions";
+import * as actions from "../../actions/productActions";
+import * as catActions from "../../actions/categoryActions";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Moment from "moment";
 
-class category extends Component {
+class product extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchByName: "",
-      categories: [],
-      currentCategories: [],
+      products: [],
+      currentProducts: [],
       currentPage: 1,
-      categoryPerPage: 5,
+      productPerPage: 5,
     };
   }
   componentDidMount() {
+    this.props.fetchAllProducts();
     this.props.fetchAllCategories();
   }
-
   handleChange = (e) => {
     this.setState({ searchByName: e.target.value });
-    let name = e.target.value;
-    let data = this.props.categoryData.response;
+    let search = e.target.value;
+    let data = this.props.productData.response;
     if (data !== undefined && data !== "") {
-      if (name) {
-        let filterCategory = data.filter((x) => x.name.includes(name));
-        this.setState({
-          categories: filterCategory,
-        });
+      if (search) {
+        let filterProduct = data.filter((x) => x.productName.includes(search));
+        if (filterProduct) {
+          this.setState({
+            products: filterProduct,
+          });
+        }
       }
     }
   };
   // delete operation with prompt
   onDelete = (id) => {
     if (window.confirm("Are you sure to delete this record?")) {
-      this.props.deleteCategory(id);
-      this.props.fetchAllCategories();
+      this.props.deleteProduct(id);
+      this.props.fetchAllProducts();
     }
   };
-
+  // category name
+  getCategoryName = (categoryId) => {
+    let categoryData = this.props.categoryData.response;
+    let categoryName;
+    if (categoryData !== undefined) {
+      let filterCategory = categoryData.filter((x) =>
+        x._id.includes(categoryId)
+      );
+      categoryName = filterCategory[0].name;
+    }
+    return categoryName;
+  };
   render() {
     let {
-      categories,
+      products,
       searchByName,
-      categoryPerPage,
+      productPerPage,
       currentPage,
-      currentCategories,
+      currentProducts,
     } = this.state;
     // get props
-    const { categoryData } = this.props;
-
-    let data = categoryData.response;
-
+    const { productData } = this.props;
+    let data = productData.response;
     if (data !== undefined && data !== "") {
       if (!searchByName) {
-        categories = categoryData.response;
+        products = data;
       }
       // get current categories
-      const indexOfLastCategory = currentPage * categoryPerPage;
-      const indexOfFirstCategory = indexOfLastCategory - categoryPerPage;
-
-      currentCategories = categories.slice(
-        indexOfFirstCategory,
-        indexOfLastCategory
-      );
+      const indexOfLastProduct = currentPage * productPerPage;
+      const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+      currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
     } else {
       return (
         <div className="container" style={{ padding: "0px 20px" }}>
@@ -79,12 +87,11 @@ class category extends Component {
         currentPage: pageNumber,
       });
     };
-
     return (
       <div className="container" style={{ padding: "0px 20px" }}>
         <br />
         <h4 style={{ marginTop: "4rem", textAlign: "center" }}>
-          List of Categories
+          List of Products
         </h4>
         <input
           type="text"
@@ -94,8 +101,7 @@ class category extends Component {
           id="searchByName"
           value={searchByName}
         />
-
-        <Link to="/category/create">
+        <Link to="/product/create">
           <button
             className="waves-effect waves-light btn"
             style={{ textDecoration: "none" }}
@@ -103,35 +109,38 @@ class category extends Component {
             +
           </button>
         </Link>
-
         <table className="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Ref Cat Id</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Description</th>
               <th>Create Date</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {currentCategories &&
-              currentCategories.map((cat) => {
+            {currentProducts &&
+              currentProducts.map((product) => {
+                // get category name
+                const categoryName = this.getCategoryName(product.categoryId);
                 return (
-                  <tr key={cat._id}>
-                    <td>{cat.name}</td>
-                    <td>{cat.categoryId}</td>
-                    <td>{Moment(cat.createdDate).format("MM-DD-YYYY")}</td>
+                  <tr key={product._id}>
+                    <td>{product.productName}</td>
+                    <td>{categoryName}</td>
+                    <td>{product.productDescription}</td>
+                    <td>{Moment(product.createdDate).format("MM-DD-YYYY")}</td>
                     <td>
                       <Link
-                        to={`/category/updateCategory/:${cat._id}`}
-                        params={{ id: cat._id }}
+                        to={`/product/updateProduct/:${product._id}`}
+                        params={{ id: product._id }}
                       >
                         <button className="waves-effect waves-light btn">
                           /
                         </button>
                       </Link>
                       <button
-                        onClick={() => this.onDelete(cat._id)}
+                        onClick={() => this.onDelete(product._id)}
                         className="waves-effect waves-light btn"
                       >
                         x
@@ -143,25 +152,25 @@ class category extends Component {
           </tbody>
         </table>
         <Pagination
-          categoryPerPage={categoryPerPage}
-          totalCategories={categories.length}
+          productPerPage={productPerPage}
+          totalProducts={products.length}
           paginate={paginate}
         />
       </div>
     );
   }
 }
-
+// map state to props
 const mapStateToProps = (state) => {
   return {
+    productData: state.prod.products,
     categoryData: state.cat.categories,
   };
 };
-
-// map action to props
+// map props to actions
 const mapActionToProps = {
-  fetchAllCategories: actions.fetchCategories,
-  deleteCategory: actions.deleteCategories,
+  fetchAllProducts: actions.fetchProducts,
+  deleteProduct: actions.deleteProducts,
+  fetchAllCategories: catActions.fetchCategories,
 };
-
-export default connect(mapStateToProps, mapActionToProps)(category);
+export default connect(mapStateToProps, mapActionToProps)(product);

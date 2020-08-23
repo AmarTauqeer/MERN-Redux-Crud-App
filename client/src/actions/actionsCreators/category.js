@@ -1,5 +1,6 @@
 import {
   FETCH_CATEGORY,
+  FETCH_CATEGORY_BY_ID,
   CREATE_CATEGORY,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
@@ -12,6 +13,14 @@ import {
 export const fetchCategory = (categories) => {
   return {
     type: FETCH_CATEGORY,
+    payload: categories,
+  };
+};
+
+// fetch category by id
+export const fetchCategoryById = (categories) => {
+  return {
+    type: FETCH_CATEGORY_BY_ID,
     payload: categories,
   };
 };

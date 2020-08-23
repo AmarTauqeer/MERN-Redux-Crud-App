@@ -7,6 +7,7 @@ var app = express();
 const passport = require("passport");
 const users = require("./routes/api/users");
 const categories = require("./routes/api/category");
+const products = require("./routes/api/product");
 
 // Passport middleware
 app.use(passport.initialize());
@@ -44,6 +45,7 @@ mongoose
 // Routes
 app.use("/api/users", users);
 app.use("/api/category", categories);
+app.use("/api/product", products);
 
 // Listening server port
 app.listen(port, function () {

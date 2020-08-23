@@ -16,6 +16,10 @@ import Category from "./components/category/category";
 import CreateCategory from "./components/category/createCategory";
 import UpdateCategory from "./components/category/updateCategory";
 
+import Product from "./components/product/product";
+import CreateProduct from "./components/product/createProduct";
+import updateProduct from "./components/product/updateProduct";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -57,6 +61,17 @@ class App extends Component {
                 exact
                 path="/category/updateCategory/:id"
                 component={UpdateCategory}
+              />
+              <PrivateRoute exact path="/product" component={Product} />
+              <PrivateRoute
+                exact
+                path="/product/create"
+                component={CreateProduct}
+              />
+              <PrivateRoute
+                exact
+                path="/product/updateProduct/:id"
+                component={updateProduct}
               />
             </Switch>
           </div>

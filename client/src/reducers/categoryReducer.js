@@ -1,6 +1,7 @@
 // import types
 import {
   FETCH_CATEGORY,
+  FETCH_CATEGORY_BY_ID,
   CREATE_CATEGORY,
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
@@ -21,6 +22,13 @@ const categoryReducer = (state = initialState, action) => {
         categories: action.payload,
         error: "",
       };
+    case FETCH_CATEGORY_BY_ID:
+      return {
+        ...state,
+        categories: action.payload,
+        error: "",
+      };
+
     case CREATE_CATEGORY:
       return {
         ...state,

@@ -29,6 +29,9 @@ class Navbar extends Component {
               <li>
                 <Link to="/category">Category</Link>
               </li>
+              <li>
+                <Link to="/product">Product</Link>
+              </li>
 
               <li>
                 <Link to="/register">Register</Link>
@@ -53,7 +56,9 @@ class Navbar extends Component {
           <li>
             <Link to="/category">Category</Link>
           </li>
-
+          <li>
+            <Link to="/product">Product</Link>
+          </li>
           <li>
             <Link to="/register">Register</Link>
           </li>
