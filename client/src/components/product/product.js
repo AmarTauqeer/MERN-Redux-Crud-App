@@ -5,6 +5,7 @@ import * as catActions from "../../actions/categoryActions";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Moment from "moment";
+import spinner from "./../../images/spinner.gif";
 
 class product extends Component {
   constructor(props) {
@@ -76,8 +77,11 @@ class product extends Component {
       currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
     } else {
       return (
-        <div className="container" style={{ padding: "0px 20px" }}>
-          <h3>loading...</h3>
+        <div
+          className="container"
+          style={{ padding: "0px 20px", textAlign: "center" }}
+        >
+          <img src={spinner} alt="spinner" />
         </div>
       );
     }

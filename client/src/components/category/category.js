@@ -4,6 +4,7 @@ import * as actions from "../../actions/categoryActions";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import Moment from "moment";
+import spinner from "./../../images/spinner.gif";
 
 class category extends Component {
   constructor(props) {
@@ -68,8 +69,11 @@ class category extends Component {
       );
     } else {
       return (
-        <div className="container" style={{ padding: "0px 20px" }}>
-          <h3>loading...</h3>
+        <div
+          className="container"
+          style={{ padding: "0px 20px", textAlign: "center" }}
+        >
+          <img src={spinner} alt="spinner" />
         </div>
       );
     }
