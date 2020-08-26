@@ -36,7 +36,13 @@ class Navbar extends Component {
               <li>
                 <Link to="/register">Register</Link>
               </li>
-
+              {this.props.auth.isAuthenticated ? (
+                <li>
+                  <Link to="/profile">Profile</Link>
+                </li>
+              ) : (
+                ""
+              )}
               {this.props.auth.isAuthenticated ? (
                 <li>
                   <Link to="" onClick={this.onLogoutClick}>
@@ -62,6 +68,13 @@ class Navbar extends Component {
           <li>
             <Link to="/register">Register</Link>
           </li>
+          {this.props.auth.isAuthenticated ? (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          ) : (
+            ""
+          )}
           {this.props.auth.isAuthenticated ? (
             <li>
               <Link to="" onClick={this.onLogoutClick}>

@@ -1,7 +1,12 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types/types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  USER_LOADING,
+  UPDATE_PROFILE,
+} from "./types/types";
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
   axios
@@ -62,4 +67,21 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+// update profile
+// update
+export const updateProfiles = (id, user) => {
+  return (dispatch) => {
+    axios.put(`/api/users/editProfile/${id}`, user).then((response) => {
+      dispatch(updateProfile(response.data));
+    });
+  };
+};
+// update profile
+export const updateProfile = (data) => {
+  return {
+    type: UPDATE_PROFILE,
+    payload: data,
+  };
 };

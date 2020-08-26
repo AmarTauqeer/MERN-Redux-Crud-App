@@ -67,8 +67,11 @@ router.post("/login", (req, res) => {
         // User matched
         // Create JWT Payload
         const payload = {
-          id: user.id,
+          _id: user.id,
           name: user.name,
+          email: user.email,
+          password: user.password,
+          date: user.date,
         };
         // Sign token
         jwt.sign(
@@ -80,7 +83,7 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token,
+              token: "Amar Tauqeer " + token,
             });
           }
         );
@@ -91,6 +94,27 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+// udpate profile
+router.put("/editProfile/:id", (req, res) => {
+  var updatedRecord = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $set: updatedRecord },
+    { new: true },
+    (err, docs) => {
+      if (!err) res.send(docs);
+      else
+        console.log(
+          "Error while updating a record : " + JSON.stringify(err, undefined, 2)
+        );
+    }
+  );
 });
 
 module.exports = router;
