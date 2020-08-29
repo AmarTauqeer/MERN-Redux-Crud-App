@@ -2,45 +2,52 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions/authActions";
+import PropTypes from "prop-types";
+import isEmpty from "is-empty";
 
 const initialState = {
   _id: "",
-  name: "",
-  email: "",
-  nameError: "",
-  emailError: "",
+  oldPassword: "",
+  oldPasswordError: "",
+  newPassword: "",
+  newPasswordError: "",
+  errors: {},
 };
 
-class editProfile extends Component {
+class ChangePassword extends Component {
   constructor() {
     super();
     this.state = initialState;
   }
+  componentWillReceiveProps(nextProps) {
+    if (isEmpty(nextProps.errors)) {
+      this.props.history.push("/login");
+    } else {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
+  }
   componentDidMount() {
-    let id = this.props.location.state.id;
     const users = this.props.auth;
     this.setState({
-      _id: id,
-      name: users.user.name,
-      email: users.user.email,
+      _id: users.user._id,
     });
   }
   validate = () => {
-    let nameError = "";
-    let emailError = "";
-    if (this.state.name.length === 0) {
-      nameError = "Name is required.";
+    let oldPasswordError = "";
+    let newPasswordError = "";
+
+    if (this.state.oldPassword.length === 0) {
+      oldPasswordError = "Old password is required.";
     }
-    if (!this.state.email.includes("@")) {
-      emailError = "Invalid email.";
+    if (this.state.newPassword.length === 0) {
+      newPasswordError = "New password is required.";
     }
-    if (this.state.email.length === 0) {
-      emailError = "Email is required.";
-    }
-    if (nameError || emailError) {
+    if (oldPasswordError || newPasswordError) {
       this.setState({
-        nameError,
-        emailError,
+        oldPasswordError,
+        newPasswordError,
       });
       return false;
     }
@@ -49,31 +56,31 @@ class editProfile extends Component {
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
-
   onSubmit = (e) => {
     e.preventDefault();
     // validation
     const isValid = this.validate();
+    //console.log(this.state.errors);
     if (isValid) {
       const data = {
         _id: this.state._id,
-        name: this.state.name,
-        email: this.state.email,
+        oldPassword: this.state.oldPassword,
+        newPassword: this.state.newPassword,
       };
       let id = this.state._id;
-      this.props.updateProfiles(id, data);
-      this.props.history.push("/profile");
+      this.props.changePasswords(id, data);
     }
   };
   render() {
+    const { errors } = this.state;
     return (
       <div className="container">
         <br />
         <div className="row" style={{ marginTop: "4rem" }}>
           <div className="col s8 offset-s2">
-            <Link to="/profile" className="btn-flat waves-effect">
+            <Link to="/" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
-              Profile
+              Home
             </Link>
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4
@@ -82,33 +89,41 @@ class editProfile extends Component {
                   fontWeight: "300",
                 }}
               >
-                Update Profile
+                Change Password
               </h4>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
-                <label className="active">Name</label>
+                <label className="active">Old Password</label>
                 <input
                   onChange={this.onChange}
-                  value={this.state.name}
-                  id="name"
-                  type="text"
+                  value={this.state.oldPassword}
+                  id="oldPassword"
+                  type="password"
                 />
-                {this.state.nameError ? (
-                  <span className="red-text">{this.state.nameError}</span>
+                {this.state.oldPasswordError ? (
+                  <span className="red-text">
+                    {this.state.oldPasswordError}
+                  </span>
                 ) : null}
+                {errors.passwordincorrect ? (
+                  <span className="red-text">{errors.passwordincorrect}</span>
+                ) : null}
+
                 <input type="hidden" id="_id" value={this.state._id} />
               </div>
               <div className="input-field col s12">
-                <label className="active">Email</label>
+                <label className="active">New Password</label>
                 <input
                   onChange={this.onChange}
-                  value={this.state.email}
-                  id="email"
-                  type="email"
+                  value={this.state.newPassword}
+                  id="newPassword"
+                  type="password"
                 />
-                {this.state.emailError ? (
-                  <span className="red-text">{this.state.emailError}</span>
+                {this.state.newPasswordError ? (
+                  <span className="red-text">
+                    {this.state.newPasswordError}
+                  </span>
                 ) : null}
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -133,14 +148,20 @@ class editProfile extends Component {
     );
   }
 }
+
+ChangePassword.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
 });
 // map action to props
 const mapActionToProps = {
-  updateProfiles: actions.updateProfiles,
+  changePasswords: actions.changePasswords,
 };
 export default connect(
   mapStateToProps,
   mapActionToProps
-)(withRouter(editProfile));
+)(withRouter(ChangePassword));

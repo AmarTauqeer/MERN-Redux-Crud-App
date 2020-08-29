@@ -45,6 +45,14 @@ class Navbar extends Component {
               )}
               {this.props.auth.isAuthenticated ? (
                 <li>
+                  <Link to="/changePassword">Change Password</Link>
+                </li>
+              ) : (
+                ""
+              )}
+
+              {this.props.auth.isAuthenticated ? (
+                <li>
                   <Link to="" onClick={this.onLogoutClick}>
                     Logout
                   </Link>
@@ -75,6 +83,14 @@ class Navbar extends Component {
           ) : (
             ""
           )}
+          {this.props.auth.isAuthenticated ? (
+            <li>
+              <Link to="/changePassword">Change Password</Link>
+            </li>
+          ) : (
+            ""
+          )}
+
           {this.props.auth.isAuthenticated ? (
             <li>
               <Link to="" onClick={this.onLogoutClick}>

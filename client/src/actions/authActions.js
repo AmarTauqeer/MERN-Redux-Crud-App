@@ -6,6 +6,7 @@ import {
   SET_CURRENT_USER,
   USER_LOADING,
   UPDATE_PROFILE,
+  CHANGE_PASSWORD,
 } from "./types/types";
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
@@ -82,6 +83,35 @@ export const updateProfiles = (id, user) => {
 export const updateProfile = (data) => {
   return {
     type: UPDATE_PROFILE,
+    payload: data,
+  };
+};
+// change password api call
+export const changePasswords = (id, user) => {
+  return (dispatch) => {
+    axios
+      .put(`/api/users/changePassword/${id}`, user)
+      .then((response) => {
+        dispatch(changePassword(response.data));
+        // clear the errors
+        dispatch({
+          type: GET_ERRORS,
+          payload: {},
+        });
+      })
+      .catch((err) => {
+        //catch error
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        });
+      });
+  };
+};
+// change password
+export const changePassword = (data) => {
+  return {
+    type: CHANGE_PASSWORD,
     payload: data,
   };
 };

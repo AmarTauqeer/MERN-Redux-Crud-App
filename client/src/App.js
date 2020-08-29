@@ -19,8 +19,10 @@ import UpdateCategory from "./components/category/updateCategory";
 import Product from "./components/product/product";
 import CreateProduct from "./components/product/createProduct";
 import updateProduct from "./components/product/updateProduct";
+
 import Profile from "./components/auth/Profile";
 import EditProfile from "./components/auth/editProfile";
+import ChangePassword from "./components/auth/ChangePassword";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -55,6 +57,11 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/editProfile" component={EditProfile} />
+              <PrivateRoute
+                exact
+                path="/changePassword"
+                component={ChangePassword}
+              />
               <PrivateRoute exact path="/category" component={Category} />
               <PrivateRoute
                 exact
