@@ -9,7 +9,7 @@
 - Validation server side
 - Validation client side
 - Pagination
-- User Management
+- User Management(Register, Profile update and Change password)
 ### Tools and Technology
 - React
 - Redux(State management tool)
