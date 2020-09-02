@@ -12,6 +12,8 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/dashboard";
 
+import CustomForm from "./components/CustomForm/index";
+
 import Category from "./components/category/category";
 import CreateCategory from "./components/category/createCategory";
 import UpdateCategory from "./components/category/updateCategory";
@@ -62,6 +64,7 @@ class App extends Component {
                 path="/changePassword"
                 component={ChangePassword}
               />
+              <PrivateRoute exact path="/custom-form" component={CustomForm} />
               <PrivateRoute exact path="/category" component={Category} />
               <PrivateRoute
                 exact

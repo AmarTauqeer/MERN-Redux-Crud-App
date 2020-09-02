@@ -54,9 +54,6 @@ class createCategory extends Component {
     if (isValid) {
       this.props.addCategories(newCategory);
       this.props.history.push("/category");
-
-      // clear form
-      this.setState(initialState);
     }
   };
   render() {

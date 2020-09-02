@@ -30,6 +30,10 @@ class Navbar extends Component {
                 <Link to="/category">Category</Link>
               </li>
               <li>
+                <Link to="/custom-form">Add Cat with Reusable Component</Link>
+              </li>
+
+              <li>
                 <Link to="/product">Product</Link>
               </li>
 
@@ -70,6 +74,10 @@ class Navbar extends Component {
           <li>
             <Link to="/category">Category</Link>
           </li>
+          <li>
+            <Link to="/custom-form">Add Cat with Reusable Component</Link>
+          </li>
+
           <li>
             <Link to="/product">Product</Link>
           </li>
